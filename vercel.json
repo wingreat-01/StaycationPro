@@ -3,5 +3,7 @@
   "framework": null,
   "installCommand": "bash scripts/vercel-install.sh",
   "buildCommand": "bash scripts/vercel-build.sh",
-  "outputDirectory": "build/web"
+  "outputDirectory": "site",
+  "cleanUrls": true,
+  "redirects": [{ "source": "/app", "destination": "/app/", "permanent": true }]
 }

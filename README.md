@@ -51,6 +51,22 @@ lib/
 supabase/schema.sql    tables, row-level security, booking functions
 ```
 
+## Website (Vercel)
+
+The `site/` folder is the public website, deployed to Vercel:
+
+| Path | File |
+|---|---|
+| `/` | `site/index.html` — landing page |
+| `/privacy` | `site/privacy.html` — privacy policy |
+| `/delete-account` | `site/delete-account.html` — account deletion |
+| `/app/` | `site/app/` — the Flutter web app, generated on every build (not in git) |
+
+Vercel runs `scripts/vercel-build.sh`, which builds the app with `--base-href /app/`
+and copies it into `site/app/`. Set `SUPABASE_URL` and `SUPABASE_PUBLISHABLE_KEY`
+in Vercel → Settings → Environment Variables. To build the same site locally:
+`bash scripts/vercel-build.sh --local`.
+
 ## Before publishing to Google Play
 
 - Change `applicationId` in `android/app/build.gradle.kts` if you want something other than `ph.staycationpro.staycation_pro`.

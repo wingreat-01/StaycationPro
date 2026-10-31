@@ -49,3 +49,6 @@ env.json
 
 # Flutter SDK cloned during Vercel builds
 /flutter/
+
+# Flutter web build copied in by scripts/vercel-build.sh
+/site/app/
