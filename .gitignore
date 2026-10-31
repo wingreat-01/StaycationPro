@@ -46,3 +46,6 @@ app.*.map.json
 
 # Supabase credentials
 env.json
+
+# Flutter SDK cloned during Vercel builds
+/flutter/
