@@ -16,6 +16,9 @@ FLUTTER=flutter
 
 if [ "${1:-}" = "--local" ]; then
   DEFINES=(--dart-define-from-file=env.json)
+  json_value() { sed -n "s/.*\"$1\": *\"\([^\"]*\)\".*/\1/p" env.json; }
+  SUPABASE_URL=$(json_value SUPABASE_URL)
+  SUPABASE_PUBLISHABLE_KEY=$(json_value SUPABASE_PUBLISHABLE_KEY)
 else
   : "${SUPABASE_URL:?Set SUPABASE_URL in Vercel project settings}"
   : "${SUPABASE_PUBLISHABLE_KEY:?Set SUPABASE_PUBLISHABLE_KEY in Vercel project settings}"
@@ -30,4 +33,12 @@ fi
 
 rm -rf site/app
 cp -r build/web site/app
+
+# Supabase settings for the plain HTML pages (used by /delete-account).
+cat > site/assets/config.js <<EOF
+window.STAYCATION_CONFIG = {
+  supabaseUrl: "$SUPABASE_URL",
+  supabaseKey: "$SUPABASE_PUBLISHABLE_KEY"
+};
+EOF
 echo "Site ready in site/ (web app in site/app/)"

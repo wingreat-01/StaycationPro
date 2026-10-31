@@ -1,0 +1,28 @@
+<!--
+  Supabase dashboard -> Authentication -> Emails -> "Magic Link" template.
+  Subject: Confirm your StaycationPro account deletion
+  StaycationPro only uses magic links for account deletion, so this
+  template is worded for that.
+-->
+<div style="font-family: -apple-system, 'Segoe UI', Roboto, Arial, sans-serif; max-width: 520px; margin: 0 auto; padding: 24px; color: #0f172a;">
+  <h2 style="margin: 0 0 12px;">Confirm your account deletion</h2>
+  <p style="color: #334155; line-height: 1.6;">
+    We received a request to permanently delete the StaycationPro account for
+    <strong>{{ .Email }}</strong>.
+  </p>
+  <p style="color: #334155; line-height: 1.6;">
+    Tap the button below to continue. You'll be asked to confirm one last time
+    before anything is deleted.
+  </p>
+  <p style="margin: 28px 0;">
+    <a href="{{ .ConfirmationURL }}"
+       style="background: #0f766e; color: #ffffff; padding: 14px 24px; border-radius: 999px; text-decoration: none; font-weight: 700; display: inline-block;">
+      Continue to delete my account
+    </a>
+  </p>
+  <p style="color: #64748b; font-size: 14px; line-height: 1.6;">
+    This link expires in 1 hour and can only be used once. If you didn't ask to
+    delete your account, ignore this email — your account is safe.
+  </p>
+  <p style="color: #64748b; font-size: 14px;">— StaycationPro by ProHubApps</p>
+</div>

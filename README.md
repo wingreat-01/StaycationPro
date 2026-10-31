@@ -20,7 +20,8 @@ auto-declines overlapping pending ones, and only the owner can accept.
 1. Create a project at [supabase.com](https://supabase.com).
 2. In the dashboard open **SQL Editor** and run, in order:
    [supabase/schema.sql](supabase/schema.sql), then
-   [supabase/002_listing_photos.sql](supabase/002_listing_photos.sql) (photo storage).
+   [supabase/002_listing_photos.sql](supabase/002_listing_photos.sql) (photo storage), then
+   [supabase/003_account_deletion.sql](supabase/003_account_deletion.sql) (self-service account deletion).
 3. For quick testing, turn off email confirmation:
    **Authentication → Sign In / Providers → Email → Confirm email** (turn it back on before launch).
 4. Copy `env.example.json` to `env.json` and fill in your values from
@@ -66,6 +67,20 @@ Vercel runs `scripts/vercel-build.sh`, which builds the app with `--base-href /a
 and copies it into `site/app/`. Set `SUPABASE_URL` and `SUPABASE_PUBLISHABLE_KEY`
 in Vercel → Settings → Environment Variables. To build the same site locally:
 `bash scripts/vercel-build.sh --local`.
+
+### Account deletion setup
+
+`/delete-account` emails the user a one-time Supabase link, then deletes their
+photos and account when they confirm. In the Supabase dashboard:
+
+1. **Authentication → URL Configuration**: set Site URL to your site, and add
+   `https://<your-domain>/delete-account` to Redirect URLs.
+2. **Authentication → Emails → Magic Link**: paste
+   [supabase/email-templates/magic-link.html](supabase/email-templates/magic-link.html)
+   and set the subject to "Confirm your StaycationPro account deletion".
+3. **Authentication → Emails → SMTP Settings**: connect your own email provider.
+   Supabase's built-in sender only delivers to your own team's addresses and
+   is heavily rate-limited, so real users won't receive the link without it.
 
 ## Before publishing to Google Play
 

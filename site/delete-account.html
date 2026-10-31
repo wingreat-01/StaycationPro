@@ -4,8 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Delete Your Account — StaycationPro</title>
-  <meta name="description" content="How to delete your StaycationPro account and the data associated with it.">
+  <meta name="description" content="Permanently delete your StaycationPro account and the data associated with it.">
   <meta name="theme-color" content="#0f766e">
+  <meta name="robots" content="noindex">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%230f766e'/%3E%3Cpath d='M32 14a18 18 0 0 0-18 18h36a18 18 0 0 0-18-18zm-1.5 18v16a3 3 0 0 0 6 0' stroke='white' stroke-width='3.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -33,20 +34,63 @@
       <p class="meta">StaycationPro by ProHubApps</p>
     </div>
 
-    <article class="doc-body">
-      <p>You can ask us to permanently delete your StaycationPro account and all the data linked to it at any time, whether you use the Android app or the web app.</p>
+    <!-- Step 1: ask for the account email -->
+    <section class="doc-body flow" id="view-request">
+      <h2>Request account deletion</h2>
+      <p>Enter the email address you use to sign in to StaycationPro. We'll send you a confirmation link to make sure it's really you.</p>
+      <form id="request-form" class="flow-form" novalidate>
+        <label class="field">
+          <span>Email address</span>
+          <input type="email" id="email" autocomplete="email" placeholder="you@example.com" required>
+        </label>
+        <p class="form-error" id="request-error" hidden></p>
+        <button class="btn btn-primary" type="submit" id="request-btn">Send confirmation link</button>
+      </form>
+    </section>
 
-      <h2>How to request deletion</h2>
-      <ol>
-        <li>Send an email to <a href="mailto:staycation@prohubapps.com?subject=Delete%20my%20StaycationPro%20account&amp;body=Please%20delete%20my%20StaycationPro%20account%20and%20all%20associated%20data.%0A%0AAccount%20email%3A%20">staycation@prohubapps.com</a> <strong>from the email address you use to sign in</strong>, so we can confirm the account is yours.</li>
-        <li>Use the subject <strong>"Delete my StaycationPro account"</strong>.</li>
-        <li>We'll reply to confirm we received your request, and let you know when your account has been deleted.</li>
-      </ol>
-      <p>
-        <a class="btn btn-primary" href="mailto:staycation@prohubapps.com?subject=Delete%20my%20StaycationPro%20account&amp;body=Please%20delete%20my%20StaycationPro%20account%20and%20all%20associated%20data.%0A%0AAccount%20email%3A%20">Email a deletion request</a>
-      </p>
-      <p>If you can no longer access that email address, write to us anyway and tell us your name and mobile number on the account. We may ask a few questions to confirm it's you before deleting anything.</p>
+    <!-- Step 2: link sent -->
+    <section class="doc-body flow" id="view-sent" hidden>
+      <div class="flow-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m3 7 9 6 9-6"/></svg>
+      </div>
+      <h2>Check your email</h2>
+      <p>If <strong id="sent-email"></strong> belongs to a StaycationPro account, we've sent it a confirmation link. Open the link to continue — it expires in 1 hour.</p>
+      <p class="muted">Didn't get it? Check your spam folder, or <a href="/delete-account" id="restart-link">try again</a>.</p>
+    </section>
 
+    <!-- Step 3: arrived from the email link -->
+    <section class="doc-body flow" id="view-confirm" hidden>
+      <h2>Confirm deletion</h2>
+      <p>You're about to permanently delete the StaycationPro account for <strong id="confirm-email"></strong>.</p>
+      <div class="callout warn">
+        <p><strong>This can't be undone.</strong> Your profile, all your listings and their photos, and all your bookings will be deleted. Hosts: bookings guests made for your places, including upcoming stays, will be removed too.</p>
+      </div>
+      <label class="check">
+        <input type="checkbox" id="understand">
+        <span>I understand my account and data will be permanently deleted.</span>
+      </label>
+      <p class="form-error" id="delete-error" hidden></p>
+      <button class="btn btn-danger" type="button" id="delete-btn" disabled>Permanently delete my account</button>
+    </section>
+
+    <!-- Step 4: done -->
+    <section class="doc-body flow" id="view-done" hidden>
+      <div class="flow-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>
+      </div>
+      <h2>Your account has been deleted</h2>
+      <p>Your StaycationPro account and its data have been permanently deleted. Thanks for having been part of StaycationPro.</p>
+      <p><a class="btn btn-primary" href="/">Back to home</a></p>
+    </section>
+
+    <!-- Expired or invalid link, or site misconfigured -->
+    <section class="doc-body flow" id="view-error" hidden>
+      <h2 id="error-title">This link has expired</h2>
+      <p id="error-message">Confirmation links work once and expire after 1 hour. Request a new one to continue.</p>
+      <p><a class="btn btn-primary" href="/delete-account">Request a new link</a></p>
+    </section>
+
+    <article class="doc-body" style="margin-top: 24px;">
       <h2>What gets deleted</h2>
       <ul>
         <li>Your account and sign-in details (name, email address, mobile number and password)</li>
@@ -55,22 +99,15 @@
         <li>Any messages you included with booking requests</li>
       </ul>
 
-      <div class="callout warn">
-        <p><strong>Hosts, please note:</strong> deleting your account also removes your listings and the bookings guests made for them, including upcoming stays. Please let your guests know before you request deletion.</p>
-      </div>
-
       <h2>What we keep, and for how long</h2>
       <ul>
-        <li>Copies of your data may remain in encrypted backups for up to <strong>30 days</strong> before they are automatically overwritten.</li>
+        <li>Deletion happens immediately once you confirm. Copies may remain in encrypted backups for up to <strong>30 days</strong> before they are automatically overwritten.</li>
         <li>Server security logs, which may contain your IP address, are kept by our hosting providers for a limited period and then deleted.</li>
         <li>We may keep information for longer only if the law requires it, for example to resolve a dispute or respond to a legal request.</li>
       </ul>
 
-      <h2>How long it takes</h2>
-      <p>We'll confirm your request within <strong>7 days</strong> and complete the deletion within <strong>30 days</strong>. Deletion is permanent and can't be undone.</p>
-
       <h2>Only want to remove some data?</h2>
-      <p>Hosts can delete a single listing at any time in the app: open <strong>My Places</strong>, tap the place, then tap the delete icon. To remove other specific information without closing your account, email us at <a href="mailto:staycation@prohubapps.com">staycation@prohubapps.com</a>.</p>
+      <p>Hosts can delete a single listing at any time in the app: open <strong>My Places</strong>, tap the place, then tap the delete icon. For anything else, or if you can no longer access your email, contact us at <a href="mailto:staycation@prohubapps.com">staycation@prohubapps.com</a>.</p>
       <p>For more about how we handle your data, read our <a href="/privacy">Privacy Policy</a>.</p>
     </article>
   </main>
@@ -85,5 +122,143 @@
       </nav>
     </div>
   </footer>
+
+  <script src="/assets/config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.4/dist/umd/supabase.min.js"></script>
+  <script>
+    (function () {
+      var PHOTO_BUCKET = 'listing-photos';
+      var $ = function (id) { return document.getElementById(id); };
+      var views = ['request', 'sent', 'confirm', 'done', 'error'];
+
+      function show(name) {
+        views.forEach(function (v) { $('view-' + v).hidden = v !== name; });
+      }
+
+      function showError(title, message) {
+        $('error-title').textContent = title;
+        $('error-message').textContent = message;
+        show('error');
+      }
+
+      function setInlineError(id, message) {
+        var el = $(id);
+        el.textContent = message || '';
+        el.hidden = !message;
+      }
+
+      // Read the email link's result before supabase-js clears it from the URL.
+      var hash = new URLSearchParams(location.hash.slice(1));
+      var query = new URLSearchParams(location.search);
+      var cameFromEmail = hash.has('access_token');
+      var linkError = hash.get('error_description') || query.get('error_description');
+
+      var cfg = window.STAYCATION_CONFIG || {};
+      if (!cfg.supabaseUrl || !cfg.supabaseKey || !window.supabase) {
+        showError('Something went wrong', 'Account deletion is temporarily unavailable. Please email staycation@prohubapps.com and we will delete your account for you.');
+        return;
+      }
+
+      // Kept in memory only, so it never signs anyone in to the web app.
+      var client = window.supabase.createClient(cfg.supabaseUrl, cfg.supabaseKey, {
+        auth: {
+          flowType: 'implicit',
+          detectSessionInUrl: true,
+          persistSession: false,
+          autoRefreshToken: false
+        }
+      });
+
+      var session = null;
+
+      async function init() {
+        if (linkError) {
+          showError('This link has expired', 'Confirmation links work once and expire after 1 hour. Request a new one to continue.');
+        } else if (cameFromEmail) {
+          var result = await client.auth.getSession();
+          session = result.data.session;
+          if (session) {
+            $('confirm-email').textContent = session.user.email;
+            show('confirm');
+          } else {
+            showError('This link has expired', 'Confirmation links work once and expire after 1 hour. Request a new one to continue.');
+          }
+        } else {
+          show('request');
+        }
+        // Don't leave sign-in tokens sitting in the address bar or history.
+        if (location.hash || location.search) {
+          history.replaceState(null, '', location.pathname);
+        }
+      }
+
+      $('request-form').addEventListener('submit', async function (e) {
+        e.preventDefault();
+        var email = $('email').value.trim();
+        if (!/^\S+@\S+\.\S+$/.test(email)) {
+          setInlineError('request-error', 'Enter a valid email address.');
+          return;
+        }
+        setInlineError('request-error', '');
+        var btn = $('request-btn');
+        btn.disabled = true;
+        btn.textContent = 'Sending…';
+        var result = await client.auth.signInWithOtp({
+          email: email,
+          options: {
+            shouldCreateUser: false,
+            emailRedirectTo: location.origin + '/delete-account'
+          }
+        });
+        btn.disabled = false;
+        btn.textContent = 'Send confirmation link';
+        // Unknown emails get the same response, so this page can't be used
+        // to find out who has an account.
+        var unknownUser = result.error && /signups? not allowed|user not found/i.test(result.error.message);
+        if (result.error && !unknownUser) {
+          var msg = result.error.status === 429
+            ? 'Too many requests. Please wait a few minutes and try again.'
+            : result.error.message;
+          setInlineError('request-error', msg);
+          return;
+        }
+        $('sent-email').textContent = email;
+        show('sent');
+      });
+
+      $('understand').addEventListener('change', function (e) {
+        $('delete-btn').disabled = !e.target.checked;
+      });
+
+      $('delete-btn').addEventListener('click', async function () {
+        var btn = $('delete-btn');
+        btn.disabled = true;
+        btn.textContent = 'Deleting…';
+        setInlineError('delete-error', '');
+        try {
+          // Photos live in Storage, which the database can't delete directly.
+          var uid = session.user.id;
+          var bucket = client.storage.from(PHOTO_BUCKET);
+          var listed = await bucket.list(uid, { limit: 1000 });
+          if (listed.error) throw listed.error;
+          if (listed.data.length) {
+            var removed = await bucket.remove(listed.data.map(function (f) { return uid + '/' + f.name; }));
+            if (removed.error) throw removed.error;
+          }
+          // Deletes the account; profile, listings and bookings go with it.
+          var deleted = await client.rpc('delete_my_account');
+          if (deleted.error) throw deleted.error;
+          await client.auth.signOut({ scope: 'local' }).catch(function () {});
+          show('done');
+        } catch (err) {
+          btn.disabled = !$('understand').checked;
+          btn.textContent = 'Permanently delete my account';
+          setInlineError('delete-error', 'We couldn\'t delete your account: ' + (err.message || 'unknown error') + '. Please try again, or email staycation@prohubapps.com.');
+        }
+      });
+
+      init();
+    })();
+  </script>
 </body>
 </html>

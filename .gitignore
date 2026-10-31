@@ -52,3 +52,4 @@ env.json
 
 # Flutter web build copied in by scripts/vercel-build.sh
 /site/app/
+/site/assets/config.js

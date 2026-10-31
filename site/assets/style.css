@@ -421,3 +421,65 @@ section { padding: 88px 0; }
 @media (max-width: 600px) {
   .doc-body { padding: 24px; border-radius: 20px; }
 }
+
+/* ---- Forms (account deletion flow) ----------------------------------- */
+
+.flow-form { display: grid; gap: 16px; max-width: 440px; margin-top: 20px; }
+
+.field { display: grid; gap: 6px; }
+
+.field span { font-weight: 700; font-size: 0.9rem; }
+
+.field input {
+  font: inherit;
+  padding: 14px 16px;
+  border-radius: 14px;
+  border: 1.5px solid transparent;
+  background: var(--field);
+  color: var(--ink);
+  outline: none;
+}
+
+.field input:focus { border-color: var(--brand); background: #fff; }
+
+.check {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  margin: 8px 0 20px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.check input { width: 18px; height: 18px; margin-top: 4px; accent-color: #b91c1c; }
+
+.form-error {
+  color: #b91c1c;
+  background: #fee2e2;
+  border-radius: 12px;
+  padding: 10px 14px;
+  margin: 0 0 16px;
+  font-weight: 600;
+  font-size: 0.92rem;
+}
+
+.btn-danger { background: #b91c1c; color: #fff; }
+
+.btn:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
+
+.flow-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 18px;
+  display: grid;
+  place-items: center;
+  background: rgba(15, 118, 110, 0.1);
+  color: var(--brand);
+  margin-bottom: 8px;
+}
+
+.flow-icon svg { width: 28px; height: 28px; }
+
+.muted { color: var(--muted) !important; }
+
+[hidden] { display: none !important; }
