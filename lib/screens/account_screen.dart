@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../links.dart';
 import '../models.dart';
@@ -150,6 +151,49 @@ class AccountScreen extends StatelessWidget {
                     ),
                   ),
                 ),
+                const SizedBox(height: 12),
+                AppCard(
+                  padding: EdgeInsets.zero,
+                  onTap: () => _deleteAccount(context, email),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Row(
+                      children: [
+                        _IconBox(
+                          icon: Icons.person_remove_outlined,
+                          color: theme.colorScheme.error,
+                        ),
+                        const SizedBox(width: 14),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Delete account',
+                                style: TextStyle(
+                                  color: theme.colorScheme.error,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                              const Text(
+                                'Permanently remove your account and data',
+                                style: TextStyle(
+                                  color: AppColors.muted,
+                                  fontSize: 12,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const Icon(
+                          Icons.open_in_new_rounded,
+                          size: 18,
+                          color: AppColors.muted,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
                 const SizedBox(height: 32),
                 const Center(
                   child: Text(
@@ -164,6 +208,28 @@ class AccountScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+/// Sends the user to the website's deletion page, which emails them a
+/// confirmation link before anything is deleted.
+Future<void> _deleteAccount(BuildContext context, String email) async {
+  final ok = await confirmDialog(
+    context,
+    'Delete your account?',
+    "We'll open the StaycationPro website, where you can send a "
+        'confirmation link to $email.\n\n'
+        'Nothing is deleted until you open that link and confirm. Deleting '
+        'your account permanently removes your profile, listings, photos '
+        'and bookings.',
+    confirm: 'Continue',
+  );
+  if (!ok || !context.mounted) return;
+  await openSitePage(
+    context,
+    deleteAccountUrl(email),
+    // The confirmation email opens in the browser, so start there too.
+    mode: LaunchMode.externalApplication,
+  );
 }
 
 class _InfoRow extends StatelessWidget {

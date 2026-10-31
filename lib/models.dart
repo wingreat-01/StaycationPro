@@ -116,6 +116,11 @@ class Booking {
 
   bool get isUpcoming => !checkOut.isBefore(DateTime.now());
 
+  /// Whether the guest stays the night of [day]. The check-out day itself
+  /// is free for the next guest.
+  bool coversNight(DateTime day) =>
+      !day.isBefore(checkIn) && day.isBefore(checkOut);
+
   factory Booking.fromMap(Map<String, dynamic> m) {
     final listing = m['listings'] as Map<String, dynamic>?;
     final guest = m['guest'] as Map<String, dynamic>?;

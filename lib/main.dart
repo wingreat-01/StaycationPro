@@ -9,6 +9,7 @@ import 'screens/auth_screen.dart';
 import 'screens/guest/browse_screen.dart';
 import 'screens/guest/my_bookings_screen.dart';
 import 'screens/owner/booking_requests_screen.dart';
+import 'screens/owner/calendar_screen.dart';
 import 'screens/owner/my_listings_screen.dart';
 import 'theme.dart';
 
@@ -121,7 +122,7 @@ class _HomeShellState extends State<HomeShell> {
   Widget build(BuildContext context) {
     final isOwner = widget.profile.isOwner;
     final pages = isOwner
-        ? const [BookingRequestsScreen(), MyListingsScreen()]
+        ? const [BookingRequestsScreen(), CalendarScreen(), MyListingsScreen()]
         : const [BrowseScreen(), MyBookingsScreen()];
     final destinations = isOwner
         ? const [
@@ -129,6 +130,11 @@ class _HomeShellState extends State<HomeShell> {
               icon: Icon(Icons.space_dashboard_outlined),
               selectedIcon: Icon(Icons.space_dashboard_rounded),
               label: 'Dashboard',
+            ),
+            NavigationDestination(
+              icon: Icon(Icons.calendar_month_outlined),
+              selectedIcon: Icon(Icons.calendar_month_rounded),
+              label: 'Calendar',
             ),
             NavigationDestination(
               icon: Icon(Icons.home_work_outlined),

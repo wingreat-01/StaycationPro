@@ -184,6 +184,9 @@
             showError('This link has expired', 'Confirmation links work once and expire after 1 hour. Request a new one to continue.');
           }
         } else {
+          // The app links here with ?email= so the user only has to confirm it.
+          var prefill = query.get('email');
+          if (prefill) $('email').value = prefill;
           show('request');
         }
         // Don't leave sign-in tokens sitting in the address bar or history.
