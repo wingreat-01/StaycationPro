@@ -25,7 +25,9 @@ class _BrowseScreenState extends State<BrowseScreen> {
 
   Future<void> _reload() async {
     final future = fetchActiveListings(search: _search.text);
-    setState(() => _listings = future);
+    setState(() {
+      _listings = future;
+    });
     await future.catchError((_) => <Listing>[]);
   }
 

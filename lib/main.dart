@@ -80,7 +80,9 @@ class _ProfileLoaderState extends State<_ProfileLoader> {
                   Text(errorMessage(snap.error!)),
                   const SizedBox(height: 12),
                   FilledButton(
-                    onPressed: () => setState(() => _profile = fetchProfile()),
+                    onPressed: () => setState(() {
+                      _profile = fetchProfile();
+                    }),
                     child: const Text('Retry'),
                   ),
                   TextButton(

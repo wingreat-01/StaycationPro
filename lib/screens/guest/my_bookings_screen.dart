@@ -16,7 +16,9 @@ class _MyBookingsScreenState extends State<MyBookingsScreen> {
 
   Future<void> _reload() async {
     final future = fetchGuestBookings();
-    setState(() => _bookings = future);
+    setState(() {
+      _bookings = future;
+    });
     await future.catchError((_) => <Booking>[]);
   }
 

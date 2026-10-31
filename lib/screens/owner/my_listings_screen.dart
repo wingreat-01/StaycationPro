@@ -17,7 +17,9 @@ class _MyListingsScreenState extends State<MyListingsScreen> {
 
   Future<void> _reload() async {
     final future = fetchMyListings();
-    setState(() => _listings = future);
+    setState(() {
+      _listings = future;
+    });
     await future.catchError((_) => <Listing>[]);
   }
 
