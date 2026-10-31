@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../links.dart';
 import '../models.dart';
 import '../repository.dart';
 import '../theme.dart';
@@ -94,6 +95,35 @@ class AccountScreen extends StatelessWidget {
                             : 'Not set',
                       ),
                     ],
+                  ),
+                ),
+                const SizedBox(height: 28),
+                const SectionTitle('Legal'),
+                AppCard(
+                  padding: EdgeInsets.zero,
+                  onTap: () => openSitePage(context, privacyPolicyUrl),
+                  child: const Padding(
+                    padding: EdgeInsets.all(16),
+                    child: Row(
+                      children: [
+                        _IconBox(
+                          icon: Icons.privacy_tip_outlined,
+                          color: AppColors.brand,
+                        ),
+                        SizedBox(width: 14),
+                        Expanded(
+                          child: Text(
+                            'Privacy policy',
+                            style: TextStyle(fontWeight: FontWeight.w600),
+                          ),
+                        ),
+                        Icon(
+                          Icons.open_in_new_rounded,
+                          size: 18,
+                          color: AppColors.muted,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 const SizedBox(height: 20),
